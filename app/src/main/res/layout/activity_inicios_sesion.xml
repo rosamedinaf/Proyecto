@@ -25,6 +25,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="200dp"
+        android:background="@color/colorAzul"
         android:text="Iniciar sesión con Facebook"
         android:textColor="@android:color/white"
         tools:background="@color/colorAzul" />
@@ -36,12 +37,13 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="133dp"
+        android:background="@color/colorRojo"
         android:text="Iniciar sesión con Google"
         android:textColor="@android:color/white"
         tools:background="@color/colorRojo" />
 
     <Button
-        android:id="@+id/btnIniciarSesion"
+        android:id="@+id/btnIniciarSesionN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -54,7 +56,7 @@
         android:layout_width="126dp"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/edtFacebook"
-        android:layout_alignTop="@+id/btnIniciarSesion"
+        android:layout_alignTop="@+id/btnIniciarSesionN"
         android:text="Registrarse" />
 
 </RelativeLayout>
