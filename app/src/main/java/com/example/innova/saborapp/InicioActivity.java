@@ -3,6 +3,9 @@ package com.example.innova.saborapp;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,13 +16,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.innova.saborapp.fragment.dummy.DummyContent;
+import com.example.innova.saborapp.fragment.itemRecetaFragment;
+
 public class InicioActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener , itemRecetaFragment.OnListFragmentInteractionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -32,19 +39,43 @@ public class InicioActivity extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerlayout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navview);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //setFragment(0);
+
     }
+
+  /*  public void setFragment(int position) {
+        FragmentManager fragmentManager;
+        FragmentTransaction fragmentTransaction;
+        switch (position) {
+            case 0:
+                fragmentManager = getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                itemRecetaFragment lstaRecetaFragment = new itemRecetaFragment();
+                fragmentTransaction.replace(R.id.fragment, lstaRecetaFragment);
+                fragmentTransaction.commit();
+                break;
+            case 1:
+                fragmentManager = getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+//                StarredFragment starredFragment = new StarredFragment();
+//                fragmentTransaction.replace(R.id.fragment, starredFragment);
+//                fragmentTransaction.commit();
+                break;
+        }
+    }*/
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerlayout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -80,9 +111,19 @@ public class InicioActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-     /*   if (id == R.id.nav_camera) {
+        Fragment fragment = null;
+        boolean FragmentTransaction = false;
+
+      if (id == R.id.nav_inicio) {
+
+          fragment = new itemRecetaFragment();
+          FragmentTransaction = true;
+
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        }
+
+        /*
+        else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
 
@@ -93,9 +134,22 @@ public class InicioActivity extends AppCompatActivity
         } else if (id == R.id.nav_send) {
 
         }
+
 */
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if(FragmentTransaction){
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_inicio, fragment).commit();
+            item.setChecked(true);
+            getSupportActionBar().setTitle(item.getTitle());
+        }
+
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerlayout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+
     }
 }
